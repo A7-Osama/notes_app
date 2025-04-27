@@ -22,7 +22,7 @@ class NoteItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: 26,
                 color: Colors.black,
-                //fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.bold,
               ),
             ),
             subtitle: Padding(
