@@ -7,6 +7,7 @@ class CustomButton extends StatelessWidget {
   final Color? color;
   @override
   Widget build(BuildContext context) {
+    //consted
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -19,7 +20,7 @@ class CustomButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 20,

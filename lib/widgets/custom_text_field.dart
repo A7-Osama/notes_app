@@ -20,8 +20,8 @@ class CustomTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //consted
     return TextField(
-      textAlignVertical: TextAlignVertical.center,
       cursorColor: color,
       maxLines: maxLines,
       minLines: minLines,

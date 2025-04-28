@@ -8,6 +8,7 @@ class NotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //consted
     return Scaffold(
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 10.0, right: 10.0),
@@ -16,7 +17,7 @@ class NotesView extends StatelessWidget {
           width: 65,
           child: FloatingActionButton(
             backgroundColor: KPrimaryColor,
-            shape: CircleBorder(),
+            shape: const CircleBorder(),
             onPressed: () {
               showModalBottomSheet(
                 shape: RoundedRectangleBorder(
@@ -28,7 +29,7 @@ class NotesView extends StatelessWidget {
                 },
               );
             },
-            child: Icon(Icons.add, color: Colors.black, size: 35),
+            child: const Icon(Icons.add, color: Colors.black, size: 35),
           ),
         ),
       ),
