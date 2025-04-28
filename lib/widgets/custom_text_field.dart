@@ -7,13 +7,13 @@ class CustomTextfield extends StatelessWidget {
     this.txtInput,
     this.hinText,
     this.onChange,
-    this.color,
+    this.color = Colors.white,
     this.maxLines = 1,
     this.minLines,
   });
 
   final int? maxLines, minLines;
-  final Color? color;
+  final Color color;
   final TextInputType? txtInput;
   final String? hinText;
   final Function(String)? onChange;
@@ -30,7 +30,7 @@ class CustomTextfield extends StatelessWidget {
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         hintText: hinText,
-        hintStyle: TextStyle(color: color ?? Colors.white),
+        hintStyle: TextStyle(color: color),
         enabledBorder: buildBorder(),
         border: buildBorder(),
         focusedBorder: buildBorder(color: color),
