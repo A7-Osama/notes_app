@@ -15,15 +15,15 @@ class AddNoteBottomSheet extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 32),
-            CustomTextfield(hinText: 'Title ...', color: KPrimaryColor),
+            CustomTextfield(hinText: 'Title ...', color: kPrimaryColor),
             SizedBox(height: 20),
             CustomTextfield(
               hinText: 'Content ...',
-              color: KPrimaryColor,
+              color: kPrimaryColor,
               maxLines: 5,
             ),
             SizedBox(height: 108),
-            CustomButton(text: 'Add', color: KPrimaryColor),
+            CustomButton(text: 'Add', color: kPrimaryColor),
             SizedBox(height: 32),
           ],
         ),

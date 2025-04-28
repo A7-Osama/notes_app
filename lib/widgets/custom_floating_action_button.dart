@@ -13,7 +13,7 @@ class CustomFloatingActionButton extends StatelessWidget {
         height: 65,
         width: 65,
         child: FloatingActionButton(
-          backgroundColor: KPrimaryColor,
+          backgroundColor: kPrimaryColor,
           shape: const CircleBorder(),
           onPressed: () {
             showModalBottomSheet(
