@@ -34,7 +34,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
       key: formKey,
       child: Column(
         children: [
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
           CustomTextfield(
             onSaved: (value) {
               title = value;
@@ -42,7 +42,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
             hinText: 'Title ...',
             color: kPrimaryColor,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           CustomTextfield(
             onSaved: (value) {
               subTitle = value;
@@ -51,7 +51,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
             color: kPrimaryColor,
             maxLines: 5,
           ),
-          SizedBox(height: 108),
+          const SizedBox(height: 108),
           CustomButton(
             onTap: () {
               if (formKey.currentState!.validate()) {
@@ -64,7 +64,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
             text: 'Add',
             color: kPrimaryColor,
           ),
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
         ],
       ),
     );

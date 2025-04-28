@@ -8,9 +8,9 @@ class NotesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //consted
-    return Scaffold(
-      floatingActionButton: const CustomFloatingActionButton(),
-      body: const NotesViewBody(),
+    return const Scaffold(
+      floatingActionButton: CustomFloatingActionButton(),
+      body: NotesViewBody(),
     );
   }
 }
