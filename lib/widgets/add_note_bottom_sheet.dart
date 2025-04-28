@@ -9,24 +9,63 @@ class AddNoteBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Consted
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: const SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 32),
-            CustomTextfield(hinText: 'Title ...', color: kPrimaryColor),
-            SizedBox(height: 20),
-            CustomTextfield(
-              hinText: 'Content ...',
-              color: kPrimaryColor,
-              maxLines: 5,
-            ),
-            SizedBox(height: 108),
-            CustomButton(text: 'Add', color: kPrimaryColor),
-            SizedBox(height: 32),
-          ],
-        ),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: SingleChildScrollView(child: AddNoteForm()),
+    );
+  }
+}
+
+class AddNoteForm extends StatefulWidget {
+  const AddNoteForm({super.key});
+
+  @override
+  State<AddNoteForm> createState() => _AddNoteFormState();
+}
+
+class _AddNoteFormState extends State<AddNoteForm> {
+  final GlobalKey<FormState> formKey = GlobalKey();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  String? title, subTitle;
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      autovalidateMode: autovalidateMode,
+      key: formKey,
+      child: Column(
+        children: [
+          SizedBox(height: 32),
+          CustomTextfield(
+            onSaved: (value) {
+              title = value;
+            },
+            hinText: 'Title ...',
+            color: kPrimaryColor,
+          ),
+          SizedBox(height: 20),
+          CustomTextfield(
+            onSaved: (value) {
+              subTitle = value;
+            },
+            hinText: 'Content ...',
+            color: kPrimaryColor,
+            maxLines: 5,
+          ),
+          SizedBox(height: 108),
+          CustomButton(
+            onTap: () {
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+              } else {
+                autovalidateMode = AutovalidateMode.always;
+                setState(() {});
+              }
+            },
+            text: 'Add',
+            color: kPrimaryColor,
+          ),
+          SizedBox(height: 32),
+        ],
       ),
     );
   }
