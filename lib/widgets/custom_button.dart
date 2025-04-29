@@ -6,7 +6,9 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.onTap,
     this.color = Colors.white,
+    this.isLoading = false,
   });
+  final bool isLoading;
   final String text;
   final VoidCallback? onTap;
   final Color color;
@@ -23,14 +25,21 @@ class CustomButton extends StatelessWidget {
         height: 55,
         width: MediaQuery.of(context).size.width,
         child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
+          child:
+              isLoading
+                  ? SizedBox(
+                    height: 24,
+                    width: 24,
+                    child: CircularProgressIndicator(color: Colors.black),
+                  )
+                  : Text(
+                    text,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
         ),
       ),
     );
