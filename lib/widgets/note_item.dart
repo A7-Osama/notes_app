@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key});
-
+  const NoteItem({super.key, required this.note});
+  final NoteModel note;
   @override
   Widget build(BuildContext context) {
     //consted
@@ -23,16 +24,17 @@ class NoteItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(left: 16, bottom: 24, top: 24),
         decoration: BoxDecoration(
-          color: const Color(0xffFFCCB0),
+          color: Color(note.color), //const Color(0xffFFCCB0),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
-              title: const Text(
-                'Flutter Tip',
-                style: TextStyle(
+              title: Text(
+                // 'Flutter Tip',
+                note.title,
+                style: const TextStyle(
                   fontSize: 26,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -41,7 +43,8 @@ class NoteItem extends StatelessWidget {
               subtitle: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Text(
-                  'Build your career up with A7mad Me3yad',
+                  // 'Build your career up with A7mad Me3yad',
+                  note.subtitle,
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.black.withAlpha(128),
@@ -63,10 +66,14 @@ class NoteItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
               child: Text(
-                DateFormat("MMMM d, y").format(DateTime.now()),
+                // DateFormat("MMMM d, y").format(DateTime.now()),
+                DateFormat(
+                  "MMMM d, y  (hh:mm a)",
+                ).format(DateTime.parse(note.date)),
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 11,
                   color: Colors.black.withAlpha(102),
+                  fontWeight: FontWeight.bold,
                 ),
                 // textAlign: TextAlign.end,
               ),
