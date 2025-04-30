@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubit/add_note_cubit/add_note_cubit.dart';
 
 class ColorCircle extends StatelessWidget {
@@ -28,20 +29,12 @@ class ColorCircleList extends StatefulWidget {
 class _ColorCircleListState extends State<ColorCircleList> {
   int currentIndex = 0;
 
-  List<Color> colors = const [
-    Color(0xffE9D2F4),
-    Color(0xffF2C14E),
-    Color(0xffB95F89),
-    Color(0xff63B0CD),
-    Color(0xff587D71),
-    Color(0xffFFCCB0),
-  ];
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50 * 2,
       child: ListView.builder(
-        itemCount: colors.length,
+        itemCount: kColorsList.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return Padding(
@@ -49,12 +42,13 @@ class _ColorCircleListState extends State<ColorCircleList> {
             child: GestureDetector(
               onTap: () {
                 currentIndex = index;
-                BlocProvider.of<AddNoteCubit>(context).color = colors[index];
+                BlocProvider.of<AddNoteCubit>(context).color =
+                    kColorsList[index];
                 setState(() {});
               },
               child: ColorCircle(
                 isActive: currentIndex == index,
-                color: colors[index],
+                color: kColorsList[index],
               ),
             ),
           );
