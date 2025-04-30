@@ -26,17 +26,13 @@ class _AddNoteFormState extends State<AddNoteForm> {
         children: [
           const SizedBox(height: 32),
           CustomTextfield(
-            onSaved: (value) {
-              title = value;
-            },
+            onSaved: (value) => title = value,
             hinText: 'Title ...',
             color: kPrimaryColor,
           ),
           const SizedBox(height: 20),
           CustomTextfield(
-            onSaved: (value) {
-              subtitle = value;
-            },
+            onSaved: (value) => subtitle = value,
             hinText: 'Content ...',
             color: kPrimaryColor,
             maxLines: 5,
