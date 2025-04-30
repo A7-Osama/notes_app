@@ -34,24 +34,26 @@ class NoteItem extends StatelessWidget {
           children: [
             ListTile(
               title: Text(
-                // 'Flutter Tip',
                 note.title,
                 style: const TextStyle(
                   fontSize: 26,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Text(
-                  // 'Build your career up with A7mad Me3yad',
                   note.subtitle,
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.black.withAlpha(128),
                     fontWeight: FontWeight.bold,
                   ),
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               trailing: Padding(
@@ -81,7 +83,6 @@ class NoteItem extends StatelessWidget {
                   color: Colors.black.withAlpha(102),
                   fontWeight: FontWeight.bold,
                 ),
-                // textAlign: TextAlign.end,
               ),
             ),
           ],

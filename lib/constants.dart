@@ -13,4 +13,12 @@ List<Color> kColorsList = const [
   Color(0xff5DFDCB),
   Color(0xffF4FAFF),
   Color(0xff8789C0),
+  Color(0xffE8DB7D),
+  Color(0xff8CFF98),
+  Color(0xffAAD922),
+  Color(0xffB0F2B4),
+  Color(0xffBAF2E9),
+  Color(0xffBAD7F2),
+  Color(0xffF2BAC9),
+  Color(0xffF2E2BA),
 ];

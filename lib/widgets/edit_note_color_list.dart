@@ -23,7 +23,7 @@ class _EditNoteColorListState extends State<EditNoteColorList> {
     if (currentIndex > 3) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         controller.animateTo(
-          50.0 * currentIndex,
+          80.0 * currentIndex,
           duration: Duration(seconds: 1),
           curve: Curves.easeOut,
         );
