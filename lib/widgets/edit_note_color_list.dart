@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/widgets.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/models/note_model.dart';
@@ -14,12 +12,23 @@ class EditNoteColorList extends StatefulWidget {
 }
 
 class _EditNoteColorListState extends State<EditNoteColorList> {
+  final ScrollController controller = ScrollController();
   late int currentIndex;
+  late bool isEnd;
 
   @override
   void initState() {
-    currentIndex = kColorsList.indexOf(Color(widget.note.color));
     super.initState();
+    currentIndex = kColorsList.indexOf(Color(widget.note.color));
+    if (currentIndex > 3) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        controller.animateTo(
+          50.0 * currentIndex,
+          duration: Duration(seconds: 1),
+          curve: Curves.easeOut,
+        );
+      });
+    }
   }
 
   @override
@@ -27,6 +36,7 @@ class _EditNoteColorListState extends State<EditNoteColorList> {
     return SizedBox(
       height: 50 * 2,
       child: ListView.builder(
+        controller: controller,
         itemCount: kColorsList.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {

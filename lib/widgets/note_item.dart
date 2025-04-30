@@ -50,6 +50,7 @@ class NoteItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.black.withAlpha(128),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

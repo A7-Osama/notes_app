@@ -4,7 +4,8 @@ import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubit/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/widgets/custom_app_bar.dart';
-import 'package:notes_app/widgets/custom_text_field.dart';
+// import 'package:notes_app/widgets/custom_text_field.dart';
+import 'package:notes_app/widgets/custom_text_field_try.dart';
 import 'package:notes_app/widgets/edit_note_color_list.dart';
 
 class EditNoteViewBody extends StatefulWidget {
@@ -39,14 +40,14 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
             },
           ),
           const SizedBox(height: 50),
-          CustomTextfield(
+          CustomTextfieldTry(
             //uText: widget.note.title,
             onChange: (value) => title = value,
             hinText: widget.note.title,
             color: kPrimaryColor,
           ),
           const SizedBox(height: 20),
-          CustomTextfield(
+          CustomTextfieldTry(
             //uText: widget.note.subtitle,
             onChange: (value) => content = value,
             hinText: widget.note.subtitle,

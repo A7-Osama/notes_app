@@ -7,6 +7,10 @@ List<Color> kColorsList = const [
   Color(0xffF2C14E),
   Color(0xffB95F89),
   Color(0xff63B0CD),
-  Color(0xff587D71),
+  Color(0xffE3DCC2),
   Color(0xffFFCCB0),
+  Color(0xffA6A867),
+  Color(0xff5DFDCB),
+  Color(0xffF4FAFF),
+  Color(0xff8789C0),
 ];

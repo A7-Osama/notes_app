@@ -9,10 +9,14 @@ class NotesListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //consted
+
     return BlocBuilder<NotesCubit, NotesState>(
       builder: (context, state) {
         List<NoteModel> notes =
             BlocProvider.of<NotesCubit>(context).notes ?? [];
+        notes.sort(
+          (a, b) => DateTime.parse(b.date).compareTo(DateTime.parse(a.date)),
+        );
 
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
