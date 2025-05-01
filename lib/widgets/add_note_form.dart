@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubit/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app/customs/language_detector.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/widgets/color_circle_list.dart';
 import 'package:notes_app/widgets/custom_button.dart';
@@ -18,6 +19,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title, subtitle;
+  bool isArabic = false;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -27,12 +29,22 @@ class _AddNoteFormState extends State<AddNoteForm> {
         children: [
           const SizedBox(height: 32),
           CustomTextfield(
+            textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
+            onChange: (value) {
+              isArabic = LanguageDetector.detectLanguageIsAr(text: value);
+              setState(() {});
+            },
             onSaved: (value) => title = value,
             hinText: 'Title ...',
             color: kPrimaryColor,
           ),
           const SizedBox(height: 20),
           CustomTextfield(
+            textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
+            onChange: (value) {
+              isArabic = LanguageDetector.detectLanguageIsAr(text: value);
+              setState(() {});
+            },
             onSaved: (value) => subtitle = value,
             hinText: 'Content ...',
             color: kPrimaryColor,
@@ -54,6 +66,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                       subtitle: subtitle!,
                       date: DateTime.now().toString(),
                       color: Color(0xffFFCCB0).toARGB32(),
+                      lan: 'En',
                     );
                     BlocProvider.of<AddNoteCubit>(context).addNote(note);
                   } else {

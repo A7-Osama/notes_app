@@ -13,6 +13,7 @@ class CustomTextfieldTry extends StatefulWidget {
     this.onSaved,
     this.uText,
     this.textEditingController,
+    this.textDirection,
   });
 
   final String? uText;
@@ -23,6 +24,7 @@ class CustomTextfieldTry extends StatefulWidget {
   final Function(String)? onChange;
   final void Function(String?)? onSaved;
   final TextEditingController? textEditingController;
+  final TextDirection? textDirection;
 
   @override
   State<CustomTextfieldTry> createState() => _CustomTextfieldTryState();
@@ -42,6 +44,8 @@ class _CustomTextfieldTryState extends State<CustomTextfieldTry> {
   Widget build(BuildContext context) {
     //consted
     return TextFormField(
+      textCapitalization: TextCapitalization.sentences,
+      textDirection: widget.textDirection,
       controller: _controller, //widget.textEditingController,
       // initialValue: uText,
       onSaved: widget.onSaved,

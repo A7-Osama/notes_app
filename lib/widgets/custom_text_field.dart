@@ -13,6 +13,7 @@ class CustomTextfield extends StatelessWidget {
     this.onSaved,
     this.uText,
     this.textEditingController,
+    this.textDirection,
   });
 
   final String? uText;
@@ -23,10 +24,12 @@ class CustomTextfield extends StatelessWidget {
   final Function(String)? onChange;
   final void Function(String?)? onSaved;
   final TextEditingController? textEditingController;
+  final TextDirection? textDirection;
   @override
   Widget build(BuildContext context) {
     //consted
     return TextFormField(
+      textDirection: textDirection,
       controller: textEditingController,
       // initialValue: uText,
       onSaved: onSaved,
