@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/customs/outlined_border.dart';
+import 'package:notes_app/helpers/outlined_border.dart';
 
 class CustomTextfieldStfl extends StatefulWidget {
   const CustomTextfieldStfl({

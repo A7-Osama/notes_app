@@ -2,22 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubit/add_note_cubit/add_note_cubit.dart';
-
-class ColorCircle extends StatelessWidget {
-  const ColorCircle({super.key, required this.isActive, required this.color});
-  final bool isActive;
-  final Color color;
-  @override
-  Widget build(BuildContext context) {
-    return isActive
-        ? CircleAvatar(
-          radius: 50,
-          backgroundColor: const Color(0xffFFFFFF),
-          child: CircleAvatar(radius: 48, backgroundColor: color),
-        )
-        : CircleAvatar(radius: 35, backgroundColor: color);
-  }
-}
+import 'package:notes_app/widgets/color_circle.dart';
 
 class ColorCircleList extends StatefulWidget {
   const ColorCircleList({super.key});
@@ -28,32 +13,40 @@ class ColorCircleList extends StatefulWidget {
 
 class _ColorCircleListState extends State<ColorCircleList> {
   int currentIndex = 0;
+  final ValueNotifier<int> currentIndexs = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50 * 2,
+      height: 100,
       child: ListView.builder(
         itemCount: kColorsList.length,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: GestureDetector(
-              onTap: () {
-                currentIndex = index;
-                BlocProvider.of<AddNoteCubit>(context).color =
-                    kColorsList[index];
-                setState(() {});
-              },
-              child: ColorCircle(
-                isActive: currentIndex == index,
-                color: kColorsList[index],
-              ),
-            ),
-          );
-        },
+        itemBuilder: (context, index) => _buildColorItem(index),
       ),
     );
+  }
+
+  Widget _buildColorItem(int index) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+      child: GestureDetector(
+        onTap: () => _handleColorSelection(index),
+        child: ValueListenableBuilder<int>(
+          valueListenable: currentIndexs,
+          builder: (context, selectedIndex, child) {
+            return ColorCircle(
+              isActive: selectedIndex == index,
+              color: kColorsList[index],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  void _handleColorSelection(int index) {
+    currentIndexs.value = index;
+    BlocProvider.of<AddNoteCubit>(context).color = kColorsList[index];
   }
 }
