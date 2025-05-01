@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/customs/outlined_border.dart';
 
-class CustomTextfieldTry extends StatefulWidget {
-  const CustomTextfieldTry({
+class CustomTextfieldStfl extends StatefulWidget {
+  const CustomTextfieldStfl({
     super.key,
     this.txtInput,
     this.hinText,
@@ -14,6 +14,7 @@ class CustomTextfieldTry extends StatefulWidget {
     this.uText,
     this.textEditingController,
     this.textDirection,
+    this.textAlign,
   });
 
   final String? uText;
@@ -25,13 +26,15 @@ class CustomTextfieldTry extends StatefulWidget {
   final void Function(String?)? onSaved;
   final TextEditingController? textEditingController;
   final TextDirection? textDirection;
+  final TextAlign? textAlign;
 
   @override
-  State<CustomTextfieldTry> createState() => _CustomTextfieldTryState();
+  State<CustomTextfieldStfl> createState() => _CustomTextfieldStflState();
 }
 
-class _CustomTextfieldTryState extends State<CustomTextfieldTry> {
+class _CustomTextfieldStflState extends State<CustomTextfieldStfl> {
   late TextEditingController _controller;
+  late TextDirection txxx;
 
   @override
   void initState() {
@@ -44,6 +47,7 @@ class _CustomTextfieldTryState extends State<CustomTextfieldTry> {
   Widget build(BuildContext context) {
     //consted
     return TextFormField(
+      textAlign: widget.textAlign ?? TextAlign.left,
       textCapitalization: TextCapitalization.sentences,
       textDirection: widget.textDirection,
       controller: _controller, //widget.textEditingController,

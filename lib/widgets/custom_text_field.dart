@@ -11,27 +11,23 @@ class CustomTextfield extends StatelessWidget {
     this.maxLines = 1,
     this.minLines,
     this.onSaved,
-    this.uText,
-    this.textEditingController,
     this.textDirection,
+    this.lblText,
   });
 
-  final String? uText;
   final int? maxLines, minLines;
   final Color color;
   final TextInputType? txtInput;
   final String? hinText;
   final Function(String)? onChange;
   final void Function(String?)? onSaved;
-  final TextEditingController? textEditingController;
   final TextDirection? textDirection;
+  final String? lblText;
   @override
   Widget build(BuildContext context) {
     //consted
     return TextFormField(
       textDirection: textDirection,
-      controller: textEditingController,
-      // initialValue: uText,
       onSaved: onSaved,
       validator: (value) {
         if (value?.isEmpty ?? true) {
@@ -47,8 +43,10 @@ class CustomTextfield extends StatelessWidget {
       onChanged: onChange,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
+        labelText: lblText,
+        labelStyle: TextStyle(color: color),
         hintText: hinText,
-        hintStyle: TextStyle(color: color),
+        hintStyle: const TextStyle(color: Colors.white60),
         enabledBorder: buildBorder(),
         border: buildBorder(),
         focusedBorder: buildBorder(color: color),

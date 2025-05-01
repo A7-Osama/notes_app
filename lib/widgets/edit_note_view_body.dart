@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubit/notes_cubit/notes_cubit.dart';
-import 'package:notes_app/customs/language_detector.dart';
+import 'package:notes_app/customs/lan_detector.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/widgets/custom_app_bar.dart';
-import 'package:notes_app/widgets/custom_text_field_try.dart';
+import 'package:notes_app/widgets/custom_text_field_stfl.dart';
 import 'package:notes_app/widgets/edit_note_color_list.dart';
 
 class EditNoteViewBody extends StatefulWidget {
@@ -26,7 +26,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
         children: [
-          const SizedBox(height: 50), //sized box umi
+          const SizedBox(height: 50),
           CustomAppBar(
             title: 'Edit Note',
             icon: Icons.check,
@@ -40,11 +40,11 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
             },
           ),
           const SizedBox(height: 50),
-          CustomTextfieldTry(
-            //uText: widget.note.title,
-            textDirection: isAr ? TextDirection.rtl : TextDirection.ltr,
+          CustomTextfieldStfl(
+            textDirection: LanDetector.isArDir(isAr: widget.note.isArTitle),
+            textAlign: LanDetector.isArAl(isAr: widget.note.isArTitle),
             onChange: (value) {
-              isAr = LanguageDetector.detectLanguageIsAr(text: value);
+              widget.note.isArTitle = LanDetector.isItAr(text: value);
               title = value;
               setState(() {});
             },
@@ -52,12 +52,12 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
             color: kPrimaryColor,
           ),
           const SizedBox(height: 20),
-          CustomTextfieldTry(
-            //uText: widget.note.subtitle,textDirection: isAr?TextDirection.rtl:TextDirection.ltr,
-            textDirection: isAr ? TextDirection.rtl : TextDirection.ltr,
+          CustomTextfieldStfl(
+            textDirection: LanDetector.isArDir(isAr: widget.note.isArContent),
+            textAlign: LanDetector.isArAl(isAr: widget.note.isArContent),
             onChange: (value) {
-              isAr = LanguageDetector.detectLanguageIsAr(text: value);
-              title = value;
+              widget.note.isArContent = LanDetector.isItAr(text: value);
+              content = value;
               setState(() {});
             },
             hinText: widget.note.subtitle,

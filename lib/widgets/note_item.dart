@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:notes_app/cubit/notes_cubit/notes_cubit.dart';
-import 'package:notes_app/customs/language_detector.dart';
+import 'package:notes_app/customs/lan_detector.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 
@@ -31,19 +31,13 @@ class NoteItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
-          crossAxisAlignment: LanguageDetector.detectLanguageCrossAxis(
-            text: note.subtitle,
-          ),
+          crossAxisAlignment: LanDetector.isArCrossAxis(isAr: note.isArContent),
           children: [
             ListTile(
               title: Text(
                 note.title,
-                textDirection: LanguageDetector.detectLanguage(
-                  text: note.title,
-                ),
-                textAlign: LanguageDetector.detectLanguageAlign(
-                  text: note.title,
-                ),
+                textDirection: LanDetector.isArDir(isAr: note.isArTitle),
+                textAlign: LanDetector.isArAl(isAr: note.isArTitle),
                 style: const TextStyle(
                   fontSize: 26,
                   color: Colors.black,
@@ -56,12 +50,8 @@ class NoteItem extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Text(
                   note.subtitle,
-                  textDirection: LanguageDetector.detectLanguage(
-                    text: note.subtitle,
-                  ),
-                  textAlign: LanguageDetector.detectLanguageAlign(
-                    text: note.subtitle,
-                  ),
+                  textDirection: LanDetector.isArDir(isAr: note.isArContent),
+                  textAlign: LanDetector.isArAl(isAr: note.isArContent),
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.black.withAlpha(128),
@@ -93,7 +83,6 @@ class NoteItem extends StatelessWidget {
                 DateFormat(
                   "MMMM d, y  (hh:mm a)",
                 ).format(DateTime.parse(note.date)),
-                //textAlign: note.lan=='Ar'?TextAlign.right:TextAlign.left,
                 style: TextStyle(
                   fontSize: 11,
                   color: Colors.black.withAlpha(102),
