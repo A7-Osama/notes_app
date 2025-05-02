@@ -6,12 +6,16 @@ class ColorCircle extends StatelessWidget {
   final Color color;
   @override
   Widget build(BuildContext context) {
-    return isActive
-        ? CircleAvatar(
-          radius: 50,
-          backgroundColor: const Color(0xffFFFFFF),
-          child: CircleAvatar(radius: 48, backgroundColor: color),
-        )
-        : CircleAvatar(radius: 35, backgroundColor: color);
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300), // Adjust animation speed
+      curve: Curves.easeOut, // Smooth motion effect
+      width: isActive ? 100 : 70,
+      height: isActive ? 100 : 70,
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+        border: isActive ? Border.all(color: Colors.white, width: 4) : null,
+      ),
+    );
   }
 }

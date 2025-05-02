@@ -82,8 +82,10 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
   void _handleSaveNote() {
     widget.note.title = title ?? widget.note.title;
     widget.note.subtitle = content ?? widget.note.subtitle;
-    widget.note.date = DateTime.now().toString();
-
+    if (title == null && content == null) {
+    } else {
+      widget.note.date = DateTime.now().toString();
+    }
     widget.note.save();
     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
     Navigator.pop(context);

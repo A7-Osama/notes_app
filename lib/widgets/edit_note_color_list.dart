@@ -13,18 +13,19 @@ class EditNoteColorList extends StatefulWidget {
 
 class _EditNoteColorListState extends State<EditNoteColorList> {
   final ScrollController controller = ScrollController();
-  late int currentIndex;
+  late ValueNotifier<int> currentIndexs;
   late bool isEnd;
 
   @override
   void initState() {
     super.initState();
-    currentIndex = kColorsList.indexOf(Color(widget.note.color));
-    if (currentIndex > 3) {
+    int initialIndex = kColorsList.indexOf(Color(widget.note.color));
+    currentIndexs = ValueNotifier<int>(initialIndex);
+    if (currentIndexs.value > 3) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         controller.animateTo(
-          80.0 * currentIndex,
-          duration: Duration(seconds: 1),
+          80.0 * initialIndex,
+          duration: const Duration(seconds: 1),
           curve: Curves.easeOut,
         );
       });
@@ -34,28 +35,43 @@ class _EditNoteColorListState extends State<EditNoteColorList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50 * 2,
+      height: 100,
       child: ListView.builder(
         controller: controller,
         itemCount: kColorsList.length,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: GestureDetector(
-              onTap: () {
-                currentIndex = index;
-                widget.note.color = kColorsList[index].toARGB32();
-                setState(() {});
-              },
-              child: ColorCircle(
-                isActive: currentIndex == index,
-                color: kColorsList[index],
-              ),
-            ),
-          );
-        },
+        itemBuilder: (context, index) => _buildColorItem(index),
       ),
     );
+  }
+
+  Widget _buildColorItem(int index) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+      child: GestureDetector(
+        onTap: () => _handleColorSelection(index),
+        child: ValueListenableBuilder<int>(
+          valueListenable: currentIndexs,
+          builder: (context, selectedIndex, child) {
+            return ColorCircle(
+              isActive: selectedIndex == index,
+              color: kColorsList[index],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  void _handleColorSelection(int index) {
+    currentIndexs.value = index;
+    widget.note.color = kColorsList[index].toARGB32();
+  }
+
+  @override
+  void dispose() {
+    currentIndexs.dispose();
+    controller.dispose();
+    super.dispose();
   }
 }
