@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubit/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/helpers/lan_detector.dart';
 import 'package:notes_app/models/note_model.dart';
@@ -80,12 +81,53 @@ class NoteItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
       child: IconButton(
-        onPressed: () {
+        onPressed: () => _showDeleteConfirmationDialog(context),
+        /* () {
           note.delete();
           BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-        },
+        }, */
         icon: const Icon(FontAwesomeIcons.trash, size: 26, color: Colors.black),
       ),
+    );
+  }
+
+  void _handleDeleteNote(context) {
+    note.delete();
+    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+    Navigator.pop(context);
+  }
+
+  void _showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Delete?", style: TextStyle(color: kPrimaryColor)),
+          content: const Text("Note will be deleted permanently!"),
+          actions: [
+            TextButton(
+              onPressed: () => _handleDeleteNote(context),
+              child: const Text(
+                "Delete",
+                style: TextStyle(
+                  color: kPrimaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                "Cancel",
+                style: TextStyle(
+                  color: kPrimaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 

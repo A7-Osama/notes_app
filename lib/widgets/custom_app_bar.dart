@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/constants.dart';
 import 'package:notes_app/widgets/custom_search_icon.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -17,7 +18,14 @@ class CustomAppBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: const TextStyle(fontSize: 28)),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 28,
+            color: kPrimaryColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         CustomIcon(onPressed: onPressed, icon: icon),
       ],
     );
