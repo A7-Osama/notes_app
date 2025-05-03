@@ -22,19 +22,29 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
   @override
   Widget build(BuildContext context) {
     //consted
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Column(
-        children: [
-          const SizedBox(height: 50),
-          _buildAppBar(),
-          const SizedBox(height: 50),
-          _buildTitleField(),
-          const SizedBox(height: 20),
-          _buildContentField(),
-          const SizedBox(height: 20),
-          EditNoteColorList(note: widget.note),
-        ],
+    return PopScope(
+      canPop: (title == null && content == null),
+      onPopInvokedWithResult: (didPop, result) {
+        if (_hasUnsavedChanges()) {
+          _showExitConfirmationDialog(context);
+        }
+        if (didPop) return;
+      },
+
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 50),
+            _buildAppBar(),
+            const SizedBox(height: 30),
+            _buildTitleField(),
+            const SizedBox(height: 20),
+            _buildContentField(),
+            const SizedBox(height: 20),
+            EditNoteColorList(note: widget.note),
+          ],
+        ),
       ),
     );
   }
@@ -75,19 +85,62 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
       },
       hinText: widget.note.subtitle,
       color: kPrimaryColor,
-      maxLines: 5,
+      maxLines: 15,
     );
   }
 
   void _handleSaveNote() {
     widget.note.title = title ?? widget.note.title;
     widget.note.subtitle = content ?? widget.note.subtitle;
-    if (title == null && content == null) {
-    } else {
-      widget.note.date = DateTime.now().toString();
-    }
+    widget.note.date = DateTime.now().toString();
     widget.note.save();
     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+    _resetNoteChanges();
     Navigator.pop(context);
+  }
+
+  void _showExitConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Unsaved Changes"),
+          content: const Text(
+            "Changes will be lost if you exit. What would you like to do?",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                _handleSaveNote();
+                Navigator.pop(context, true);
+              },
+              child: const Text("Save & Close"),
+            ),
+            TextButton(
+              onPressed: () {
+                _resetNoteChanges();
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
+              child: const Text("Close Anyway"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+              child: const Text("Stay"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _resetNoteChanges() {
+    title = null;
+    content = null;
+  }
+
+  bool _hasUnsavedChanges() {
+    return (title != null || content != null);
   }
 }

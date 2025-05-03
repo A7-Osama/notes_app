@@ -11,13 +11,11 @@ class CustomTextfieldStfl extends StatefulWidget {
     this.maxLines = 1,
     this.minLines,
     this.onSaved,
-    this.uText,
     this.textEditingController,
     this.textDirection,
     this.textAlign,
   });
 
-  final String? uText;
   final int? maxLines, minLines;
   final Color color;
   final TextInputType? txtInput;
@@ -34,12 +32,10 @@ class CustomTextfieldStfl extends StatefulWidget {
 
 class _CustomTextfieldStflState extends State<CustomTextfieldStfl> {
   late TextEditingController _controller;
-  late TextDirection txxx;
 
   @override
   void initState() {
     super.initState();
-    // Initialize the controller with the hint text
     _controller = TextEditingController(text: widget.hinText);
   }
 
@@ -51,26 +47,16 @@ class _CustomTextfieldStflState extends State<CustomTextfieldStfl> {
       textCapitalization: TextCapitalization.sentences,
       textDirection: widget.textDirection,
       controller: _controller, //widget.textEditingController,
-      // initialValue: uText,
       onSaved: widget.onSaved,
-      validator: (value) {
-        if (value?.isEmpty ?? true) {
-          return 'Field is required!';
-        } else {
-          return null;
-        }
-      },
+      validator: _validateField,
       cursorColor: widget.color,
       maxLines: widget.maxLines,
       minLines: widget.minLines,
       keyboardType: widget.txtInput,
-      onChanged: (value) {
-        if (widget.onChange != null) {
-          widget.onChange!(value);
-        }
-      }, //widget.onChange,
+      onChanged: _handleOnChanged,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
+        hintTextDirection: widget.textDirection,
         hintText: widget.hinText,
         hintStyle: TextStyle(color: widget.color),
         enabledBorder: buildBorder(),
@@ -78,5 +64,18 @@ class _CustomTextfieldStflState extends State<CustomTextfieldStfl> {
         focusedBorder: buildBorder(color: widget.color),
       ),
     );
+  }
+
+  String? _validateField(String? value) {
+    if (value?.isEmpty ?? true) {
+      return 'Field is required!';
+    }
+    return null;
+  }
+
+  void _handleOnChanged(String value) {
+    if (widget.onChange != null) {
+      widget.onChange!(value);
+    }
   }
 }
